@@ -1,0 +1,26 @@
+name: GV Projects Quality Gate
+on:
+  push:
+    branches: [homolog, main]
+  pull_request:
+    branches: [homolog, main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      DATABASE_URL: postgresql://placeholder:placeholder@localhost:5432/placeholder
+      SESSION_SECRET: 0123456789abcdef0123456789abcdef
+      DEMO_CEO_PASSWORD: homolog-ceo-password
+      DEMO_ADMIN_PASSWORD: homolog-admin-password
+      DEMO_TECH_PASSWORD: homolog-tech-password
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm install --no-audit --no-fund
+      - run: npm run env:check
+      - run: npm run db:generate
+      - run: npm run check
+      - run: npm run build

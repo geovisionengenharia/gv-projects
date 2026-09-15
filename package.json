@@ -1,0 +1,32 @@
+{
+  "name": "gv-projects",
+  "version": "1.0.0-rc.2",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "db:generate": "prisma generate",
+    "db:push": "prisma db push",
+    "db:seed": "node prisma/seed.js",
+    "check": "tsc --noEmit",
+    "db:migrate": "prisma migrate deploy",
+    "postinstall": "prisma generate",
+    "env:check": "node scripts/validate-env.mjs",
+    "deploy:check": "npm run env:check && npm run db:generate && npm run check && npm run build"
+  },
+  "dependencies": {
+    "@prisma/client": "latest",
+    "lucide-react": "latest",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest"
+  },
+  "devDependencies": {
+    "prisma": "latest",
+    "typescript": "latest",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest"
+  }
+}
